@@ -166,6 +166,23 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507291220450_InitialCreate.cs" />
+    <Compile Include="Migrations\201507291220450_InitialCreate.Designer.cs">
+      <DependentUpon>201507291220450_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507291250099_Initial.cs" />
+    <Compile Include="Migrations\201507291250099_Initial.Designer.cs">
+      <DependentUpon>201507291250099_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507291320173_Rating.cs" />
+    <Compile Include="Migrations\201507291320173_Rating.Designer.cs">
+      <DependentUpon>201507291320173_Rating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507291404327_DataAnnotations.cs" />
+    <Compile Include="Migrations\201507291404327_DataAnnotations.Designer.cs">
+      <DependentUpon>201507291404327_DataAnnotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -246,6 +263,20 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201507291220450_InitialCreate.resx">
+      <DependentUpon>201507291220450_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507291250099_Initial.resx">
+      <DependentUpon>201507291250099_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507291320173_Rating.resx">
+      <DependentUpon>201507291320173_Rating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507291404327_DataAnnotations.resx">
+      <DependentUpon>201507291404327_DataAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
