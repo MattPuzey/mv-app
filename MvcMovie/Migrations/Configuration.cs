@@ -19,13 +19,13 @@ namespace MvcMovie.Migrations
         {
             context.Movies.AddOrUpdate(i => i.Title,
 
-                new Movie
+                 new Movie
                 {
-                    Title = "Ant-Man ",
+                    Title = "Ant Man",
                     ReleaseDate = DateTime.Parse("2015-7-17"),
                     Genre = "Action",
-                    Price = 8.99M,
-                    Rating = "PG-13"
+                    Rating = "PG",
+                    Price = 8.99M
                 },
 
                 new Movie
@@ -33,8 +33,8 @@ namespace MvcMovie.Migrations
                     Title = "The Theory of Everything",
                     ReleaseDate = DateTime.Parse("2015-1-2"),
                     Genre = "Biographical Drama",
-                    Price = 9.99M,
-                    Rating = "PG-13"
+                    Rating = "PG",
+                    Price = 9.99M
                 },
 
                 new Movie
@@ -42,35 +42,35 @@ namespace MvcMovie.Migrations
                     Title = "Birdman",
                     ReleaseDate = DateTime.Parse("2015-1-2"),
                     Genre = "Black Comedy",
-                    Price = 3.99M,
-                    Rating = "R"
+                    Rating = "R",
+                    Price = 3.99M
                 },
                 new Movie
                 {
-                     Title = "Avengers: Age of Ultron",
-                     ReleaseDate = DateTime.Parse("2015-5-23"),
-                     Genre = "Action",
-                     Price = 7.99M,
-                     Rating = "PG-13"
-                },
-
-                new Movie
-                {
-                     Title = "Jurassic World",
-                     ReleaseDate = DateTime.Parse("2015-5-29"),
-                     Genre = "Science Fiction",
-                     Price = 7.99M,
-                     Rating = "PG-13"
+                    Title = "Avengers: Age of Ultron",
+                    ReleaseDate = DateTime.Parse("2015-5-23"),
+                    Genre = "Action",
+                    Rating = "PG",
+                    Price = 7.99M
                 },
 
                 new Movie
                 {
-                    Title = "The Legend of Barney Thomson",
+                    Title = "Jurassic World",
+                    ReleaseDate = DateTime.Parse("2015-5-29"),
+                    Genre = "Science Fiction",
+                    Rating = "PG",
+                    Price = 7.99M
+                },
+
+                 new Movie
+                 {
+                     Title = "The Legend of Barney Thomson",
                      ReleaseDate = DateTime.Parse("2015-7-24"),
-                     Genre = "Comedy, Crime",
-                     Price = 7.99M,
-                     Rating = "15"
-                }
+                     Genre = "Black Comedy",
+                     Rating = "R",
+                     Price = 7.99M
+                 }
             );
         }
     }
