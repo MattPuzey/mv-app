@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 
@@ -28,6 +29,8 @@ namespace MvcMovie.Models
         [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
         [StringLength(5)]
         public string Rating { get; set; }
+
+        public List<Review> Reviews { get; set; }
         
     }
 
@@ -35,4 +38,5 @@ namespace MvcMovie.Models
     {
         public DbSet<Movie> Movies { get; set; }
     }
+
 }

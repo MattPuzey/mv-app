@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using MvcMovie.Models;
 
 namespace MvcMovie.Migrations
@@ -25,7 +26,8 @@ namespace MvcMovie.Migrations
                     ReleaseDate = DateTime.Parse("2015-7-17"),
                     Genre = "Action",
                     Rating = "PG",
-                    Price = 8.99M
+                    Price = 8.99M, 
+                    Reviews = new List<Review>()
                 },
 
                 new Movie
@@ -34,7 +36,8 @@ namespace MvcMovie.Migrations
                     ReleaseDate = DateTime.Parse("2015-1-2"),
                     Genre = "Biographical Drama",
                     Rating = "PG",
-                    Price = 9.99M
+                    Price = 9.99M,
+                    Reviews = new List<Review>()
                 },
 
                 new Movie
@@ -43,7 +46,8 @@ namespace MvcMovie.Migrations
                     ReleaseDate = DateTime.Parse("2015-1-2"),
                     Genre = "Black Comedy",
                     Rating = "R",
-                    Price = 3.99M
+                    Price = 3.99M,
+                    Reviews = new List<Review>()
                 },
                 new Movie
                 {
@@ -51,7 +55,8 @@ namespace MvcMovie.Migrations
                     ReleaseDate = DateTime.Parse("2015-5-23"),
                     Genre = "Action",
                     Rating = "PG",
-                    Price = 7.99M
+                    Price = 7.99M,
+                    Reviews = new List<Review>()
                 },
 
                 new Movie
@@ -60,7 +65,8 @@ namespace MvcMovie.Migrations
                     ReleaseDate = DateTime.Parse("2015-5-29"),
                     Genre = "Science Fiction",
                     Rating = "PG",
-                    Price = 7.99M
+                    Price = 7.99M,
+                    Reviews = new List<Review>()
                 },
 
                  new Movie
@@ -69,7 +75,8 @@ namespace MvcMovie.Migrations
                      ReleaseDate = DateTime.Parse("2015-7-24"),
                      Genre = "Black Comedy",
                      Rating = "R",
-                     Price = 7.99M
+                     Price = 7.99M,
+                     Reviews = new List<Review>()
                  }
             );
         }
