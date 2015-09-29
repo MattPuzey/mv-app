@@ -27,7 +27,6 @@ namespace MvcMovie.Migrations
                     Genre = "Action",
                     Rating = "PG",
                     Price = 8.99M, 
-                    Reviews = new List<Review>()
                 },
 
                 new Movie
@@ -37,7 +36,6 @@ namespace MvcMovie.Migrations
                     Genre = "Biographical Drama",
                     Rating = "PG",
                     Price = 9.99M,
-                    Reviews = new List<Review>()
                 },
 
                 new Movie
@@ -47,7 +45,6 @@ namespace MvcMovie.Migrations
                     Genre = "Black Comedy",
                     Rating = "R",
                     Price = 3.99M,
-                    Reviews = new List<Review>()
                 },
                 new Movie
                 {
@@ -56,7 +53,6 @@ namespace MvcMovie.Migrations
                     Genre = "Action",
                     Rating = "PG",
                     Price = 7.99M,
-                    Reviews = new List<Review>()
                 },
 
                 new Movie
@@ -66,7 +62,6 @@ namespace MvcMovie.Migrations
                     Genre = "Science Fiction",
                     Rating = "PG",
                     Price = 7.99M,
-                    Reviews = new List<Review>()
                 },
 
                  new Movie
@@ -76,8 +71,25 @@ namespace MvcMovie.Migrations
                      Genre = "Black Comedy",
                      Rating = "R",
                      Price = 7.99M,
-                     Reviews = new List<Review>()
-                 }
+                 },
+
+                 new Movie
+                 {
+                     Title = "Mission Impossible - Rogue Nation",
+                     ReleaseDate = DateTime.Parse("2015-7-30"),
+                     Genre = "Action",
+                     Rating = "R",
+                     Price = 3.99M,
+                 },
+
+                  new Movie
+                  {
+                      Title = "Legend",
+                      ReleaseDate = DateTime.Parse("2015-9-9"),
+                      Genre = "Crime Thriller",
+                      Rating = "R",
+                      Price = 8.99M,
+                  }
             );
         }
     }

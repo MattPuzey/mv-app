@@ -1,7 +1,16 @@
-﻿@model MvcMovie.Models.ReviewCreateModel
+﻿@using System.Web.Mvc.Html
+@using MvcMovie.Models
+@model MvcMovie.Models.ReviewCreateModel
 
 @{
     ViewBag.Title = "Reviews";
+
+    List<SelectListItem> list = new List<SelectListItem>();
+    for (int i = 1; i < 6; i++)
+    {
+        SelectListItem one = new SelectListItem() {Text = i.ToString(), Value = i.ToString()};
+        list.Add(one);
+    }
 }
 
 <h2>Reviews</h2>
@@ -9,27 +18,90 @@
 @using (Html.BeginForm("CreateReview", "Movies", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Review.Id)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Review.Text, htmlAttributes: new {@class = "control-label col-md-2"})
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.Review.Text, new {htmlAttributes = new {@class = "form-control"}})
-            @Html.ValidationMessageFor(model => model.Review.Text, "", new {@class = "text-danger"})
+    <div class="form-horizontal">
+        <h4>Leave a Review for  @Html.DisplayFor(model => model.MovieTitle)</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <div class="control-label col-md-2"><h5 class="bold">Review body</h5>
+            </div>
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Review.Text, new {htmlAttributes = new {@class = "form-control"}, cols = 100, rows = 10})
+                @Html.ValidationMessageFor(model => model.Review.Text, "", new {@class = "text-danger"})
+            </div>
         </div>
-    </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2"><h5 class="bold">Email address</h5></div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Review.ReviewerEmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Review.ReviewerEmailAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Review.Rating, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Review.Rating, list, "Select", new {@class = "form-control"})
+            </div>
+        </div>
+</div>
     @Html.HiddenFor(m => m.MovieId)
     @Html.HiddenFor(m => m.MovieTitle)
-    @Html.HiddenFor(m => m.Review.Text)
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="Save" class="btn btn-default"/>
         </div>
     </div>
+    
 }
 
+&nbsp;
 
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Review.Id)
+        </th>
+        <th>User Reviews</th>
+        <th>Reviewed by</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Review.Rating)
+        </th>
 
+    </tr>
+
+    @if (Model.MovieReviews != null)
+    {
+        foreach (var item in Model.MovieReviews)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReviewerEmailAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

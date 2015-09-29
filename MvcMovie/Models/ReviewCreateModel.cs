@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using MvcMovie.Migrations;
 
 namespace MvcMovie.Models
 {
@@ -10,5 +11,6 @@ namespace MvcMovie.Models
         public int MovieId { get; set; }
         public string MovieTitle { get; set; }
         public Review Review { get; set; }
+        public List<Review> MovieReviews { get; set; }
     }
 }

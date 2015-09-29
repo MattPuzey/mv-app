@@ -140,13 +140,18 @@ namespace MvcMovie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.Movies.Find(id);
+            //Movie movie = db.Movies.Find(id);
+            Movie movie = db.Movies
+                .Include(x => x.Reviews)
+                .SingleOrDefault(x => x.ID == id);
+                
 
             var viewModel = new ReviewCreateModel
             {
                 MovieId = movie.ID,
                 MovieTitle = movie.Title,
-                Review = new Review()
+                Review = new Review(),
+                MovieReviews = movie.Reviews 
             };
             return View(viewModel);
         }
@@ -160,9 +165,14 @@ namespace MvcMovie.Controllers
                 return View(model);
             }
             var review = model.Review;
-            Movie movie = db.Movies.Find(model.MovieId);
+
+            Movie movie = db.Movies
+                .Include(x => x.Reviews)
+                .FirstOrDefault(x => x.ID == model.MovieId);
+
             if (movie != null)
             {
+       
                 movie.Reviews.Add(review);
                 db.SaveChanges();
             }
