@@ -14,7 +14,7 @@ namespace MvcMovie.Controllers
         private MovieDBContext db = new MovieDBContext();
 
         // GET: Reviews
-        public ActionResult ReviewsIndex(int? id)
+        public ActionResult Index(int? id)
         {
             if (id == null)
             {
@@ -29,18 +29,17 @@ namespace MvcMovie.Controllers
                 MovieId = movie.ID,
                 MovieTitle = movie.Title,
                 //Review = new Review(),
-                MovieReviews = movie.Reviews
+                MovieReviews = movie.Reviews.ToList()
             };
             return View(viewModel);
         }
 
-        public ActionResult CreateReview(int? id)
+        public ActionResult Create(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //Movie movie = db.Movies.Find(id);
             Movie movie = db.Movies
                 .Include(x => x.Reviews)
                 .SingleOrDefault(x => x.ID == id);
@@ -51,14 +50,14 @@ namespace MvcMovie.Controllers
                 MovieId = movie.ID,
                 MovieTitle = movie.Title,
                 Review = new Review(),
-                MovieReviews = movie.Reviews 
+                MovieReviews = movie.Reviews.ToList()
             };
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateReview(ReviewViewModel model)
+        public ActionResult Create(ReviewViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -76,20 +75,84 @@ namespace MvcMovie.Controllers
                 movie.Reviews.Add(review);
                 db.SaveChanges();
             }
-            return RedirectToAction("ReviewsIndex");
+            return RedirectToAction("Index", new { Id = model.MovieId });
         }
 
-        public ActionResult EditReview(int id)
+        public ActionResult Edit(int? id)
         {
-            throw new NotImplementedException();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var review = db.Reviews
+                .Include(x => x.Movie)
+                .SingleOrDefault(x => x.Id == id);
+
+            var viewModel = new ReviewViewModel
+            {
+                MovieId = review.Movie.ID,
+                MovieTitle = review.Movie.Title,
+                Review = review,
+                MovieReviews = review.Movie.Reviews.ToList()
+            };
+            return View(viewModel);
         }
 
-        public ActionResult DeleteReview(int id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "MovieId, MovieTitle, Review, MovieReviews")] ReviewViewModel model)
         {
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                var review = model.Review;
+                var movieId = model.MovieId;
+                db.Entry(review).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", new { Id = movieId });
+            }
+            var viewModel = model;
+            return View(viewModel);
         }
 
-        protected override void Dispose(bool disposing)
+        // GET: Reviews/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var review = db.Reviews
+                .Include(x => x.Movie)
+                .SingleOrDefault(x => x.Id == id);
+
+            var viewModel = new ReviewViewModel
+            {
+                MovieId = review.Movie.ID,
+                MovieTitle = review.Movie.Title,
+                Review = review,
+                MovieReviews = review.Movie.Reviews.ToList()
+            };
+            return View(viewModel);
+        }
+
+        // POST: Reviews/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            var review = db.Reviews
+                .Include(x => x.Movie)
+                .SingleOrDefault(x => x.Id == id);
+            
+            var movieId = review.Movie.ID;
+
+            db.Reviews.Remove(review);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", new { Id = movieId });
+        }
+
+            protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

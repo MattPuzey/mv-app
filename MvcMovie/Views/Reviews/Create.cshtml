@@ -3,7 +3,7 @@
 @model MvcMovie.Models.ReviewViewModel
 
 @{
-    ViewBag.Title = "CreateReview";
+    ViewBag.Title = "Create";
 
     List<SelectListItem> list = new List<SelectListItem>();
     for (int i = 1; i < 6; i++)
@@ -15,7 +15,7 @@
 
 <h2>Reviews</h2>
 
-@using (Html.BeginForm("CreateReview", "Reviews", FormMethod.Post))
+@using (Html.BeginForm("Create", "Reviews", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -95,7 +95,7 @@
 </table>
 
 <div>
-    @Html.ActionLink("Back to List", "ReviewsIndex", new { Id = Model.MovieId })
+    @Html.ActionLink("Back to List", "Index", new { Id = Model.MovieId })
 </div>
 
 @section Scripts {

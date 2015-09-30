@@ -1,13 +1,13 @@
 ﻿@model MvcMovie.Models.ReviewViewModel
 
 @{
-    ViewBag.Title = "ReviewsIndex";
+    ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Reviews for @Model.MovieTitle</h2>
 
 <p>
-    @Html.ActionLink("Create New", "CreateReview", new {Id = Model.MovieId})
+    @Html.ActionLink("Leave Review", "Create", new {Id = Model.MovieId})
 </p>
 
 <table class="table">
@@ -38,8 +38,8 @@
                 @Html.DisplayFor(modelItem => item.Rating)
             </td>
             <td>
-                @Html.ActionLink("Edit", "EditReview", new { Id = item.Id } ) |
-                @Html.ActionLink("Delete", "DeleteReview", new { Id = item.Id })
+                @Html.ActionLink("Edit", "Edit", new { Id = item.Id } ) |
+                @Html.ActionLink("Delete", "Delete", new { Id = item.Id })
             </td>
         </tr>
         }
