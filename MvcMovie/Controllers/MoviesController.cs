@@ -134,51 +134,7 @@ namespace MvcMovie.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult CreateReview(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            //Movie movie = db.Movies.Find(id);
-            Movie movie = db.Movies
-                .Include(x => x.Reviews)
-                .SingleOrDefault(x => x.ID == id);
-                
-
-            var viewModel = new ReviewCreateModel
-            {
-                MovieId = movie.ID,
-                MovieTitle = movie.Title,
-                Review = new Review(),
-                MovieReviews = movie.Reviews 
-            };
-            return View(viewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateReview(ReviewCreateModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var review = model.Review;
-
-            Movie movie = db.Movies
-                .Include(x => x.Reviews)
-                .FirstOrDefault(x => x.ID == model.MovieId);
-
-            if (movie != null)
-            {
-       
-                movie.Reviews.Add(review);
-                db.SaveChanges();
-            }
-            return RedirectToAction("Index");
-        }
-
+     
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -187,5 +143,6 @@ namespace MvcMovie.Controllers
             }
             base.Dispose(disposing);
         }
+    
     }
 }

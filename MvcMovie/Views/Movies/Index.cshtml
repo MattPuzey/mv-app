@@ -23,9 +23,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ID)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
@@ -47,9 +44,6 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ID)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
@@ -65,7 +59,7 @@
             @Html.DisplayFor(modelItem => item.Rating)
         </td>
         <td>
-            @Html.ActionLink("Reviews", "CreateReview", new {Id = item.ID})
+            @Html.ActionLink("Reviews", "ReviewsIndex", "Reviews", new { Id = item.ID }, null)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit",  new {Id = item.ID}) |

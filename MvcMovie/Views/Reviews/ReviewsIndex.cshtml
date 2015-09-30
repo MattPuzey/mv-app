@@ -1,0 +1,46 @@
+﻿@model MvcMovie.Models.ReviewViewModel
+
+@{
+    ViewBag.Title = "ReviewsIndex";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateReview")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Review.Text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Review.ReviewerEmailAddress)
+        </th>
+        <th class="col-md-1">
+            @Html.DisplayNameFor(model => model.Review.Rating)
+        </th>
+        <th class="col-md-1"></th>
+        <th>      </th>
+    </tr>
+
+    @foreach (var item in Model.MovieReviews)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReviewerEmailAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditReview", new { Id = item.Id } ) |
+                @Html.ActionLink("Delete", "DeleteReview", new { Id = item.Id })
+            </td>
+        </tr>
+        }
+</table>

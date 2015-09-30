@@ -38,7 +38,7 @@ namespace MvcMovie.Models
     {
         public DbSet<Movie> Movies { get; set; }
         //ToDo:Correct typo 
-        public DbSet<Review> Reviewa { get; set; }
+        public DbSet<Review> Reviews { get; set; }
     }
 
 }

@@ -6,7 +6,7 @@ using MvcMovie.Migrations;
 
 namespace MvcMovie.Models
 {
-    public class ReviewCreateModel
+    public class ReviewViewModel
     {
         public int MovieId { get; set; }
         public string MovieTitle { get; set; }
