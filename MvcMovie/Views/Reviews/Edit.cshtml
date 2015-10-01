@@ -8,7 +8,7 @@
 
 <h4> Edit review for @Model.MovieTitle</h4>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Reviews", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -21,7 +21,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Review.Text, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Review.Text, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Review.Text, new { htmlAttributes = new { @class = "form-control" }, cols = 100, rows = 10})
                 @Html.ValidationMessageFor(model => model.Review.Text, "", new { @class = "text-danger" })
             </div>
         </div>

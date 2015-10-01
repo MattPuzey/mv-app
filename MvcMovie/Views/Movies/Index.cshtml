@@ -38,6 +38,7 @@
             @Html.DisplayNameFor(model => model.Rating)
         </th>
         <th></th>
+        <th>Reviews No</th>
         <th></th>
     </tr>
 
@@ -59,11 +60,13 @@
             @Html.DisplayFor(modelItem => item.Rating)
         </td>
         <td>
-            @Html.ActionLink("Reviews", "Index", "Reviews", new { Id = item.ID }, null)
+            @Html.ActionLink("Reviews", "Index", "Reviews", new {Id = item.ID}, null)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reviews.Count)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit",  new {Id = item.ID}) |
-            @Html.ActionLink("Details", "Details",  new {Id = item.ID}) |
             @Html.ActionLink("Delete", "Delete",  new {Id = item.ID})
         </td>
     </tr>

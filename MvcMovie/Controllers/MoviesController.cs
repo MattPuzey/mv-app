@@ -15,6 +15,7 @@ namespace MvcMovie.Controllers
         // GET: Movies
         public ActionResult Index(string movieGenre, string searchString)
         {
+
             var GenreLst = new List<string>();
 
             var GenreQry = from d in db.Movies
@@ -37,21 +38,6 @@ namespace MvcMovie.Controllers
             }
 
             return View(movies);
-        }
-
-        // GET: Movies/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Movie movie = db.Movies.Find(id);
-            if (movie == null)
-            {
-                return HttpNotFound();
-            }
-            return View(movie);
         }
 
         // GET: Movies/Create

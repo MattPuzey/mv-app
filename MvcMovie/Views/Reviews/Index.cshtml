@@ -22,11 +22,11 @@
             @Html.DisplayNameFor(model => model.Review.Rating)
         </th>
         <th class="col-md-1"></th>
-        <th>      </th>
+        <th> </th>
     </tr>
 
     @foreach (var item in Model.MovieReviews)
-        {
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Text)
@@ -38,9 +38,13 @@
                 @Html.DisplayFor(modelItem => item.Rating)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { Id = item.Id } ) |
-                @Html.ActionLink("Delete", "Delete", new { Id = item.Id })
+                @Html.ActionLink("Edit", "Edit", new {Id = item.Id}) |
+                @Html.ActionLink("Delete", "Delete", new {Id = item.Id})
             </td>
         </tr>
-        }
+    }
 </table>
+
+<div>
+    @Html.ActionLink("Back to Movies", "Index", "Movies")
+</div>

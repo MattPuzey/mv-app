@@ -28,7 +28,7 @@ namespace MvcMovie.Controllers
             {
                 MovieId = movie.ID,
                 MovieTitle = movie.Title,
-                //Review = new Review(),
+                Review = new Review(),
                 MovieReviews = movie.Reviews.ToList()
             };
             return View(viewModel);
@@ -100,14 +100,19 @@ namespace MvcMovie.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MovieId, MovieTitle, Review, MovieReviews")] ReviewViewModel model)
+        public ActionResult Edit([Bind(Include = "MovieId,MovieTitle,Review,MovieReviews")] ReviewViewModel model, int? id)
         {
             if (ModelState.IsValid)
             {
                 var review = model.Review;
-                var movieId = model.MovieId;
+                //var movieId = model.MovieId;
                 db.Entry(review).State = EntityState.Modified;
                 db.SaveChanges();
+                //Refactor this, model bindings are broken so extra call made to extract MovieId.
+                var review2 = db.Reviews
+                   .Include(x => x.Movie)
+                   .SingleOrDefault(x => x.Id == id);
+                int movieId = review2.Movie.ID;
                 return RedirectToAction("Index", new { Id = movieId });
             }
             var viewModel = model;
