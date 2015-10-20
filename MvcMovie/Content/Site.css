@@ -27,3 +27,7 @@ textarea {
 .bold {
     font-weight: bold;
 }
+
+#movieGenre {
+    color: darkslategrey
+}

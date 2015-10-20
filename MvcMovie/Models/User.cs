@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
-using System.Text.RegularExpressions;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Linq;
+using System.Web;
 
 namespace MvcMovie.Models
 {
-    public class Review
+    public class User
     {
         public int Id { get; set; }
 
@@ -17,16 +15,11 @@ namespace MvcMovie.Models
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string ReviewerEmailAddress { get; set; }
 
-        public User User { get; set; }
+        [Required]
+        public string UserName { get; set; }
 
         [Required]
-        public int Rating { get; set; }
-
-        [Required]
-        [StringLength(1000)]
-        public string Text { get; set; }
-
-        public virtual Movie Movie { get; set; }
+        public string Password { get; set; }
+        public ICollection<Review> UserReviews { get; set; }
     }
-
 }
