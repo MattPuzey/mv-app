@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using MvcMovie.Models;
 
@@ -25,7 +26,7 @@ namespace MvcMovie.Controllers
             GenreLst.AddRange(GenreQry.Distinct());
             ViewBag.movieGenre = new SelectList(GenreLst);
 
-            var movies = from m in db.Movies
+            var movies = from m in db.Movies.Include(i => i.Images)
                 select m;
 
             if (!string.IsNullOrEmpty(searchString))
@@ -51,10 +52,25 @@ namespace MvcMovie.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
+        public ActionResult Create([Bind(Include = "ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie, HttpPostedFileBase upload)
         {
             if (ModelState.IsValid)
             {
+                if (upload != null && upload.ContentLength > 0)
+                {
+                    var posterImage = new File
+                    {
+                        // rename before storing 
+                        FileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(upload.FileName),
+                        FileType = FileType.Poster,
+                        ContentType = upload.ContentType
+                    };
+                    using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                    {
+                        posterImage.Content = reader.ReadBytes(upload.ContentLength);
+                    }
+                    movie.Images = new List<File> { posterImage };
+                }
                 db.Movies.Add(movie);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -70,7 +86,7 @@ namespace MvcMovie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.Movies.Find(id);
+            Movie movie = db.Movies.Include(s => s.Images).SingleOrDefault(s => s.ID == id);
             if (movie == null)
             {
                 return HttpNotFound();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Web.Mvc;
 
 namespace MvcMovie.Models
 {
@@ -31,6 +32,8 @@ namespace MvcMovie.Models
         public string Rating { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; }
+
+        public virtual ICollection<File> Images { get; set; }
         
     }
 }

@@ -9,8 +9,12 @@ namespace MvcMovie.Models
     public class MovieDBContext : DbContext
     {
         public DbSet<Movie> Movies { get; set; }
-        //ToDo:Correct typo 
+        
         public DbSet<Review> Reviews { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<File> Files { get; set; }
 
         public MovieDBContext()
         {

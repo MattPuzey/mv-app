@@ -18,9 +18,11 @@
             <input type="submit" value="Filter"/>
         </p>
     }
-    
 </p>
+
 <table class="table">
+
+
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -42,34 +44,45 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReleaseDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Genre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rating)
-        </td>
-        <td>
-            @Html.ActionLink("Reviews", "Index", "Reviews", new {Id = item.ID}, null)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Reviews.Count)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit",  new {Id = item.ID}) |
-            @Html.ActionLink("Delete", "Delete",  new {Id = item.ID})
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.ActionLink("Reviews", "Index", "Reviews", new {Id = item.ID}, null)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reviews.Count)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {Id = item.ID}) |
+                @Html.ActionLink("Delete", "Delete", new {Id = item.ID})
+            </td>
+           
+           @if(item.Images != null && item.Images.Any(f => f.FileType == MvcMovie.Models.FileType.Poster))
+            {
+                <dd>
+                    @*Shouldn't this be checking db not file system?*@
+                    <img src="~/Images/@item.Images.First(f => f.FileType == FileType.Poster).Id" alt="postser"/>
+                </dd>
+            }
+            
+        </tr>
+       
+    }
 
 </table>

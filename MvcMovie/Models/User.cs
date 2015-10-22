@@ -20,6 +20,7 @@ namespace MvcMovie.Models
 
         [Required]
         public string Password { get; set; }
+
         public ICollection<Review> UserReviews { get; set; }
     }
 }
