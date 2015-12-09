@@ -76,8 +76,7 @@
            @if(item.Images != null && item.Images.Any(f => f.FileType == MvcMovie.Models.FileType.Poster))
             {
                 <dd>
-                    @*Shouldn't this be checking db not file system?*@
-                    <img src="~/Images/@item.Images.First(f => f.FileType == FileType.Poster).Id" alt="postser"/>
+                    <img src="~/Images/@item.Images.First(f => f.FileType == FileType.Poster).Id" alt="poster"/>
                 </dd>
             }
             

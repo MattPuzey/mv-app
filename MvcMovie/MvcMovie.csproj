@@ -167,7 +167,6 @@
     <Compile Include="Content\App_Start\IdentityConfig.cs" />
     <Compile Include="Content\App_Start\RouteConfig.cs" />
     <Compile Include="Content\App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -225,6 +224,10 @@
     <Compile Include="Migrations\201510211329116_Files.Designer.cs">
       <DependentUpon>201510211329116_Files.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510221525067_SaveImagesToDisk.cs" />
+    <Compile Include="Migrations\201510221525067_SaveImagesToDisk.Designer.cs">
+      <DependentUpon>201510221525067_SaveImagesToDisk.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbContenxt.cs" />
     <Compile Include="Models\File.cs" />
@@ -265,7 +268,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -337,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510211329116_Files.resx">
       <DependentUpon>201510211329116_Files.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510221525067_SaveImagesToDisk.resx">
+      <DependentUpon>201510221525067_SaveImagesToDisk.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

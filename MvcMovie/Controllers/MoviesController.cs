@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MvcMovie.Models;
+using File = MvcMovie.Models.File;
 
 namespace MvcMovie.Controllers
 {
@@ -56,22 +58,38 @@ namespace MvcMovie.Controllers
         {
             if (ModelState.IsValid)
             {
+                db.Movies.Add(movie);
+                db.SaveChanges();
+
                 if (upload != null && upload.ContentLength > 0)
                 {
+                    
                     var posterImage = new File
                     {
                         // rename before storing 
-                        FileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(upload.FileName),
+                        FileName = Guid.NewGuid() + Path.GetExtension(upload.FileName),
                         FileType = FileType.Poster,
-                        ContentType = upload.ContentType
+                        ContentType = upload.ContentType,
                     };
-                    using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                    string filePath = string.Format("~/App_Data/Public/{0}/{1}", movie.ID, posterImage.FileName);
+                    posterImage.FilePath = filePath;
+                    string fileStreamPath = Server.MapPath(filePath);
+                    string directoryPath = Server.MapPath("~/App_Data/Public/" + movie.ID + "/");
+                    if (!Directory.Exists(directoryPath))  
                     {
-                        posterImage.Content = reader.ReadBytes(upload.ContentLength);
+                        Directory.CreateDirectory(directoryPath);
                     }
+                    //save to disk
+                    using (var fileStream = System.IO.File.Create(fileStreamPath))
+                    {
+                        upload.InputStream.Seek(0, SeekOrigin.Begin);
+                        upload.InputStream.CopyTo(fileStream);
+                    }
+
                     movie.Images = new List<File> { posterImage };
                 }
-                db.Movies.Add(movie);
+
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

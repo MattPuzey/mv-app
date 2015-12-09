@@ -17,7 +17,7 @@ namespace MvcMovie.Models
         public string FileName { get; set; }
         [StringLength(100)]
         public string ContentType { get; set; }
-        public byte[] Content { get; set; }
+        public string FilePath { get; set; }
         public FileType FileType { get; set; }
         public int PersonId { get; set; }
         public virtual User Uploader { get; set; }
