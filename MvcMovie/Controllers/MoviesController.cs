@@ -40,6 +40,7 @@ namespace MvcMovie.Controllers
                 movies = movies.Where(x => x.Genre == movieGenre);
             }
 
+            //TODO: Pass in viewmodel instead of movies could add get poster, get images etc. to viewModel or as 
             return View(movies);
         }
 
@@ -49,9 +50,7 @@ namespace MvcMovie.Controllers
             return View();
         }
 
-        // POST: Movies/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie, HttpPostedFileBase upload)
@@ -71,10 +70,15 @@ namespace MvcMovie.Controllers
                         FileType = FileType.Poster,
                         ContentType = upload.ContentType,
                     };
-                    string filePath = string.Format("~/App_Data/Public/{0}/{1}", movie.ID, posterImage.FileName);
+                    var publicFolderPath = Url.Content("~/Content/public");
+                    
+                    //Should move away from hardcoding path against model since Filename will be enough to find relative path
+                    string filePath = string.Format("~/Content/public/{0}/{1}", movie.ID, posterImage.FileName);
                     posterImage.FilePath = filePath;
+
+
                     string fileStreamPath = Server.MapPath(filePath);
-                    string directoryPath = Server.MapPath("~/App_Data/Public/" + movie.ID + "/");
+                    string directoryPath = Server.MapPath("~/Content/public/" + movie.ID + "/");
                     if (!Directory.Exists(directoryPath))  
                     {
                         Directory.CreateDirectory(directoryPath);

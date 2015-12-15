@@ -76,10 +76,12 @@
            @if(item.Images != null && item.Images.Any(f => f.FileType == MvcMovie.Models.FileType.Poster))
             {
                 <dd>
-                    <img src="~/Images/@item.Images.First(f => f.FileType == FileType.Poster).Id" alt="poster"/>
+                    <img src="@Url.Content(string.Concat("~/Content/public", "/", item.ID, "/", item.Images
+                    .Where(x => x.FileType == FileType.Poster)
+                    .Select(x => x.FileName).SingleOrDefault(), "?w=170"))" alt="poster" />
                 </dd>
-            }
-            
+             }
+
         </tr>
        
     }
