@@ -71,8 +71,7 @@ namespace MvcMovie.Controllers
                         FileType = FileType.Poster,
                         ContentType = upload.ContentType,
                     };
-                    var publicFolderPath = Url.Content("~/Content/public");
-                    
+
                     //Should move away from hardcoding path against model since Filename will be enough to find relative path
                     string filePath = string.Format("~/Content/public/{0}/{1}", movie.ID, posterImage.FileName);
                     posterImage.FilePath = filePath;
@@ -159,27 +158,27 @@ namespace MvcMovie.Controllers
                 .Include(x => x.Images)
                 .SingleOrDefault(x => x.ID == id);
 
-            if (movie.Reviews != null && movie.Reviews.Any())
+            if (movie?.Reviews != null && movie.Reviews.Any())
             {
                 var reviews = movie.Reviews.ToList();
                 foreach (Review review in reviews)
                 {
                     movie.Reviews.Remove(review);
                 }
-               
             }
 
-            if (movie.Images != null && movie.Images.Any())
+            if (movie?.Images != null && movie.Images.Any())
             {
                 var images = movie.Images.ToList();
                 foreach (File image in images)
                 {
                     movie.Images.Remove(image);
                 }
-            }
+                string target_dir = string.Format("~/Content/public/{0}/", movie.ID);
+                string directoryPath = Server.MapPath(target_dir);
 
-            //string directoryPath = string.Format("~/Content/public/{0}/", movie.ID);
-            //DeleteHelpers.DeleteDirectory(directoryPath);
+                DeleteHelpers.DeleteDirectory(directoryPath);
+            }
 
             db.Movies.Remove(movie);
             db.SaveChanges();

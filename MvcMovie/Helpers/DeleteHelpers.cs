@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using MvcMovie.Models;
+using System.Web.Mvc;
 using File = System.IO.File;
 
 namespace MvcMovie.Helpers
 {
     public static class DeleteHelpers
     {
-        public static void DeleteDirectory(string target_dir)
+        public static void DeleteDirectory(string directoryPath)
         {
-            string[] files = Directory.GetFiles(target_dir);
-            string[] dirs = Directory.GetDirectories(target_dir);
+            string[] files = Directory.GetFiles(directoryPath);
+            string[] dirs = Directory.GetDirectories(directoryPath);
 
             foreach (string file in files)
             {
@@ -26,16 +26,16 @@ namespace MvcMovie.Helpers
                 DeleteDirectory(dir);
             }
 
-            Directory.Delete(target_dir, false);
+            Directory.Delete(directoryPath, false);
         }
 
 
-        //public static void deleteChildCollectionFromEntity(ICollection<object> collection, Object parentEntity)
+        //public static void deleteChildCollectionFromEntity(ICollection<object> childCollection, Object parentEntity)
         //{
-        //    if(collection != null && collection.Any())
+        //    if (childCollection != null && childCollection.Any())
         //    {
-        //        var reviews = collection.ToList();
-        //        foreach (Object entity in collection)
+        //        var reviews = childCollection.ToList();
+        //        foreach (Object entity in childCollection)
         //        {
         //        }
 
