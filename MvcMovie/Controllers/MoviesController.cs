@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MvcMovie.Models;
 using File = MvcMovie.Models.File;
+using MvcMovie.Helpers;
 
 namespace MvcMovie.Controllers
 {
@@ -152,7 +153,34 @@ namespace MvcMovie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Movie movie = db.Movies.Find(id);
+            
+            Movie movie = db.Movies
+                .Include(x => x.Reviews)
+                .Include(x => x.Images)
+                .SingleOrDefault(x => x.ID == id);
+
+            if (movie.Reviews != null && movie.Reviews.Any())
+            {
+                var reviews = movie.Reviews.ToList();
+                foreach (Review review in reviews)
+                {
+                    movie.Reviews.Remove(review);
+                }
+               
+            }
+
+            if (movie.Images != null && movie.Images.Any())
+            {
+                var images = movie.Images.ToList();
+                foreach (File image in images)
+                {
+                    movie.Images.Remove(image);
+                }
+            }
+
+            //string directoryPath = string.Format("~/Content/public/{0}/", movie.ID);
+            //DeleteHelpers.DeleteDirectory(directoryPath);
+
             db.Movies.Remove(movie);
             db.SaveChanges();
             return RedirectToAction("Index");

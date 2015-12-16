@@ -6,6 +6,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MvcMovie.Models;
+using MvcMovie.Helpers;
 
 namespace MvcMovie.Controllers
 {
@@ -137,6 +138,7 @@ namespace MvcMovie.Controllers
                 Review = review,
                 MovieReviews = review.Movie.Reviews.ToList()
             };
+            
             return View(viewModel);
         }
 
@@ -150,6 +152,7 @@ namespace MvcMovie.Controllers
                 .SingleOrDefault(x => x.Id == id);
             
             var movieId = review.Movie.ID;
+
 
             db.Reviews.Remove(review);
             db.SaveChanges();

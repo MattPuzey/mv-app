@@ -66,24 +66,15 @@
             </div>
         </div>
 
-        @if (Model.Images.Any(f => f.FileType == FileType.Poster))
+       @if (Model.Images != null && Model.Images.Any(f => f.FileType == MvcMovie.Models.FileType.Poster))
         {
-            {
-                MvcMovie.Models.File poster = Model.Images.First(f => f.FileType == FileType.Poster);
-                string fileLocation = string.Format("/App_Data/Public/" + Model.ID + "/" + poster.FileName);
-                <div class=" col-md-offset-2 col-md-10">
-                    <div class="">
-                        <img src=@fileLocation alt="Poster">
-                    </div>
-                </div> 
-            }
+            <div class="col-md-offset-2 col-md-10">
+                <img src="@Url.Content(string.Concat("~/Content/public", "/", Model.ID, "/", Model.Images
+                    .Where(x => x.FileType == FileType.Poster)
+                    .Select(x => x.FileName).SingleOrDefault(), "?w=170"))" alt="poster" />
+            </div>
         }
 
-        <div class=" col-md-offset-2 col-md-10">
-            <div class="">
-                <img src="~/Images/18967542350_58eaea0039_o.jpg?w=170" alt="Sample Photo" />
-            </div>
-        </div>
         &nbsp;
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
